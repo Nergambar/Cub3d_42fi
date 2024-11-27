@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/25 16:13:36 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:41:30 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	**mtx_init(char **av, int fd)
 		free(line);
 	}
 	free(line);
-	
 	return (copy);
 }
 
@@ -61,7 +60,7 @@ char **mtxdup(char **av, int fd)
 {
 	char **copy;
 
-	if (!ft_strrchr2(av[1], ".ber"))
+	if (!ft_strrchr2(av[1], ".cub"))
 		return (NULL);
 	copy = mtx_init(av, fd);
 	if (!copy)
@@ -73,19 +72,38 @@ int main(int ac, char **av)
 {
 	char **mtx;
 	int fd;
-	(void)ac;
-	fd = open("test.ber", O_RDONLY);
+	int trimmed;
+	int i;
+	t_details dets;
+
+	init_attrs(&dets);
+	if (ac == 1)
+		return (0);
+	fd = open("test.cub", O_RDONLY);
+	if (fd < 0)
+		return(printf("ERROR\n"), 1);
 	mtx = mtxdup(av, fd);
-	int i = -1;
-	while (mtx[++i])
+	if (!mtx)
+		return(printf("ERROR\n"), 1);
+	trimmed = mtx_trim(mtx);
+	if (!check_extras(mtx, &dets, trimmed, 0))
 	{
-		printf("%s\n", mtx[i]);
+		printf("ERROR\n");
+		return (1);
 	}
-	close(fd);
+	mtx = map_mtx(mtx, av[1]);
 	i = -1;
 	while (mtx[++i])
-	{
-		free(mtx[i]);
-	}
-	free(mtx);
+		printf	("%s\n", mtx[i]);
+/* 				todo			 */
+	printf("NO:%s\n", dets.no);
+	printf("SO:%s\n", dets.so);
+	printf("WE:%s\n", dets.we);
+	printf("EA:%s\n", dets.ea);
+	printf("C:%s\n", dets.c);
+	printf("F:%s\n", dets.f);
+/* 				todo			 */
+	close(fd);
+	i = -1;
+	freemtx(mtx);
 }

@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:02:53 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/23 12:34:28 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:12:07 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**ft_split(char const *s, char c)
 	res[i] = NULL;
 	return (res);
 }
-int main()
+/* int main()
 {
 	char **tab;
 	int i;
@@ -111,4 +111,4 @@ int main()
 		i++;
 	}
 	return (0);
-}
+} */

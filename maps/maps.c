@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:46:47 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/26 10:46:12 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:19:59 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,43 @@ size_t	get_height(char *av)
     return i;
 }
 
+bool	empy_line(char *line)
+{
+	int i;
+
+	i = 0;
+	if (line[0] == '\0')
+		return (false);
+	if (line[i])
+	{
+		if (line[i] != ' ')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+int	mtx_trim(char **mtx)
+{
+	int x;
+	int y;
+	int	z;
+
+	y = 0;
+	z = 0;
+	while (mtx[y])
+	{
+		if (empy_line(mtx[y]) && mtx[y][0] != '\0')
+		{
+			z++;
+			if (z == 6)
+				x = y;
+		}
+		y++;
+	}
+	return (x);
+}
+
 size_t	get_max_width(char *av)
 {
 	size_t	j;
@@ -71,6 +108,6 @@ size_t	get_max_width(char *av)
 			j = len;
 		free(s);
 	}
-	close(fd);+
+	close(fd);
 	return (j);
 }
