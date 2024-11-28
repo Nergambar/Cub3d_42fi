@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures_check.c                                   :+:      :+:    :+:   */
+/*   t_check.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:30:15 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/27 12:42:16 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:07:33 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	init_attrs(t_details *dets)
 {
+	int	i;
+
+	i = 0;
 	dets->no = NULL;
 	dets->so = NULL;
 	dets->we = NULL;
 	dets->ea = NULL;
-	dets->s = NULL;
-	dets->f = NULL;
-	dets->c = NULL;
 }
 
 static void set_attrs(char **mtx, t_details *dets, int trimmed)
@@ -41,13 +41,16 @@ static void set_attrs(char **mtx, t_details *dets, int trimmed)
 		if (mtx[i][j] == 'E' && mtx[i][j + 1] == 'A')
 			dets->ea = ft_strdup(&mtx[i][3]);
 		if (mtx[i][j] == 'F')
-			dets->f = ft_strdup(&mtx[i][2]);
+			dets->mf = ft_split(&mtx[i][2], ',');
 		if (mtx[i][j] == 'C')
-			dets->c = ft_strdup(&mtx[i][2]);
+			dets->mc = ft_split(&mtx[i][2], ',');
 		i++;
 	}
+	if (dets->mc && dets->mf)
+	{
+		printf("good\n");
+	}
 }
-
 
 static int	check_txtrs_utils(char **mtx, int i)
 {
@@ -95,5 +98,6 @@ int check_extras(char **mtx, t_details *dets, int trimmed, int i)
 	if (!check_txtrs(mtx, trimmed, i))
 		return (-9999);
 	set_attrs(mtx, dets, trimmed);
+	// set_colors(mtx, dets, trimmed, i);
 	return (1);
 }

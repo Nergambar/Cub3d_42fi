@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/27 12:41:30 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:59:30 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int main(int ac, char **av)
 	int trimmed;
 	int i;
 	t_details dets;
+	t_textures txt;
 
 	init_attrs(&dets);
 	if (ac == 1)
@@ -95,15 +96,20 @@ int main(int ac, char **av)
 	i = -1;
 	while (mtx[++i])
 		printf	("%s\n", mtx[i]);
+	if (!set_colors(&txt, &dets))
+	{
+		printf("ERROR\n");
+		return (1);
+	}
 /* 				todo			 */
 	printf("NO:%s\n", dets.no);
 	printf("SO:%s\n", dets.so);
 	printf("WE:%s\n", dets.we);
 	printf("EA:%s\n", dets.ea);
-	printf("C:%s\n", dets.c);
-	printf("F:%s\n", dets.f);
+	printf("C:%d\n", txt.c);
+	printf("F:%d\n", txt.f);
 /* 				todo			 */
 	close(fd);
-	i = -1;
+	freeatts(&dets);
 	freemtx(mtx);
 }

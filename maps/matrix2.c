@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:40:33 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/26 15:43:41 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:59:03 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ char	**map_mtx(char **mtx, char *av)
 		j++;
 	}
 	copy[j] = NULL;
+	freemtx(mtx);
 	return (copy);
 }

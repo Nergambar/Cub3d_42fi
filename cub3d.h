@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:47:00 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/27 11:50:36 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:37:55 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,24 @@
 # include "LIBFT/libft.h"
 # include <stdbool.h>
 
+typedef struct s_textures
+{
+	int		f;
+	int		c;
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
+}	t_textures;
+
 typedef struct s_details
 {
 	char	*no;
 	char	*so;
 	char	*we;
 	char	*ea;
-	char	*s;
-	char	*f;
-	char	*c;
+	char	**mf;
+	char	**mc;
 }	t_details;
 
 void	init_attrs(t_details *dets);
@@ -42,5 +51,7 @@ char	**map_mtx(char **mtx, char *av);
 bool	empy_line(char *line);
 void	freemtx(char **mtx);
 int		check_extras(char **mtx, t_details *dets, int trimmed, int i);
+void	freeatts(t_details *dets);
+int		set_colors(t_textures *txt, t_details *dets);
 
 #endif
