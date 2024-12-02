@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:30:15 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 12:07:33 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:30:19 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_attrs(t_details *dets)
 	dets->ea = NULL;
 }
 
-static void set_attrs(char **mtx, t_details *dets, int trimmed)
+static int set_attrs(char **mtx, t_details *dets, int trimmed)
 {
 	int i;
 	int j;
@@ -46,10 +46,13 @@ static void set_attrs(char **mtx, t_details *dets, int trimmed)
 			dets->mc = ft_split(&mtx[i][2], ',');
 		i++;
 	}
-	if (dets->mc && dets->mf)
+	if (dets->mc != NULL && dets->mf != NULL)
 	{
 		printf("good\n");
 	}
+	else
+		return (0);
+	return (1);
 }
 
 static int	check_txtrs_utils(char **mtx, int i)
@@ -97,7 +100,8 @@ int check_extras(char **mtx, t_details *dets, int trimmed, int i)
 		i++;
 	if (!check_txtrs(mtx, trimmed, i))
 		return (-9999);
-	set_attrs(mtx, dets, trimmed);
+	if (!set_attrs(mtx, dets, trimmed))
+		return (-9999);
 	// set_colors(mtx, dets, trimmed, i);
 	return (1);
 }

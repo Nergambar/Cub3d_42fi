@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:47:00 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 11:37:55 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:24:39 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	freemtx(char **mtx);
 int		check_extras(char **mtx, t_details *dets, int trimmed, int i);
 void	freeatts(t_details *dets);
 int		set_colors(t_textures *txt, t_details *dets);
+int		check_split_size(char **mtx);
 
 #endif

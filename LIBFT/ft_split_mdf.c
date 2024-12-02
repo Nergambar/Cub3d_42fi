@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_mdf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:02:53 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/26 16:12:07 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:31:41 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		j;
 
+	if (count_words(s, c) != 3)
+		return (NULL);
 	res = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!res)
 		return (NULL);
@@ -96,6 +98,7 @@ char	**ft_split(char const *s, char c)
 		j++;
 	}
 	res[i] = NULL;
+	i = 0;
 	return (res);
 }
 /* int main()

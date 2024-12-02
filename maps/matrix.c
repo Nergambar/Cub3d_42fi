@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 11:59:30 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:42:59 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,12 @@ int main(int ac, char **av)
 	printf("SO:%s\n", dets.so);
 	printf("WE:%s\n", dets.we);
 	printf("EA:%s\n", dets.ea);
-	printf("C:%d\n", txt.c);
-	printf("F:%d\n", txt.f);
+	if (txt.c && txt.f)
+	{
+		i = 0;
+		printf("F:%d\n", txt.f);
+		printf("C:%d\n", txt.c);
+	}
 /* 				todo			 */
 	close(fd);
 	freeatts(&dets);

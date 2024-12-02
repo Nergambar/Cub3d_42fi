@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 10:42:48 by negambar          #+#    #+#             */
-/*   Updated: 2023/11/02 16:20:04 by negambar         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:25:04 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
+# include "../cub3d.h"
 
 typedef struct s_list
 {
