@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:47:00 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/04 11:03:34 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:10:09 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ typedef struct s_textures
 	void	*ea;
 }	t_textures;
 
+typedef struct s_details
+{
+	void	*mlx;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	**mf;
+	char	**mc;
+}	t_details;
+
 typedef struct s_sprites
 {
 	int		x;
@@ -40,18 +51,6 @@ typedef struct s_sprites
 	void 	*spriteW;
 	void 	*spriteE;
 }	t_sprites;
-
-typedef struct s_details
-{
-	void				*mlx;
-	char				*no;
-	char				*so;
-	char				*we;
-	char				*ea;
-	char				**mf;
-	char				**mc;
-	struct s_sprites	*sprites;
-}	t_details;
 
 void	init_attrs(t_details *dets, t_sprites *sp);
 char	**mtxdup(char **av, int fd);

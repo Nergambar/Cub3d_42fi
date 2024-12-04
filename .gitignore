@@ -1,4 +1,4 @@
 *.o
 *.out
-
+cub3d
 minilibx_linux/*

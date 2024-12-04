@@ -6,7 +6,7 @@
 #    By: negambar <negambar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/02 11:59:01 by negambar          #+#    #+#              #
-#    Updated: 2024/12/04 10:59:34 by negambar         ###   ########.fr        #
+#    Updated: 2024/12/04 11:09:04 by negambar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = cub3d
 LIBFT = ./libft
 GET = get_next_line/*.c
 
-SRC =  maps/maps.c maps/matrix.c maps/matrix2.c \
+SRC =  maps/maps.c maps/matrix.c maps/matrix2.c maps/mtx_utils.c \
 	textures/t_check.c textures/t_utils.c textures/t_wallcheck.c \
 	get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
 	main.c

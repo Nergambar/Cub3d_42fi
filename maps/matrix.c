@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/04 11:01:42 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:14:25 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static char	**initial_checks(char **av, int fd, \
 	mtx = NULL;
 	mtx = mtxdup(av, fd);
 	if (!mtx)
-		return (NULL);
+		return (printf("ERROR\n"), NULL);
 	t = mtx_trim(mtx);
 	if (!check_extras(mtx, dets, sp, t))
 		return (NULL);
@@ -112,7 +112,7 @@ int main(int ac, char **av)
 	init_attrs(&dets, &sp);
 	if (ac == 1)
 		return (0);
-	fd = open("test.cub", O_RDONLY);
+	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		return(printf("ERROR\n"), 1);
 	mtx = initial_checks(av, fd, &dets, &sp);
@@ -125,5 +125,5 @@ int main(int ac, char **av)
 	if (!set_colors(&txt, &dets))
 		return (printf("ERROR\n"), 1);
 	printfchecks(dets, txt);
-	closeall()
+	closeall(fd, mtx, dets);
 }
