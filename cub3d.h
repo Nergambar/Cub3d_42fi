@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:47:00 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 12:24:39 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:03:34 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "get_next_line/get_next_line.h"
-# include "LIBFT/libft.h"
+# include "./minilibx-linux/mlx.h"
+# include "libft/libft.h"
 # include <stdbool.h>
 
 typedef struct s_textures
@@ -30,17 +31,29 @@ typedef struct s_textures
 	void	*ea;
 }	t_textures;
 
+typedef struct s_sprites
+{
+	int		x;
+	int		y;
+	void 	*spriteN;
+	void 	*spriteS;
+	void 	*spriteW;
+	void 	*spriteE;
+}	t_sprites;
+
 typedef struct s_details
 {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	**mf;
-	char	**mc;
+	void				*mlx;
+	char				*no;
+	char				*so;
+	char				*we;
+	char				*ea;
+	char				**mf;
+	char				**mc;
+	struct s_sprites	*sprites;
 }	t_details;
 
-void	init_attrs(t_details *dets);
+void	init_attrs(t_details *dets, t_sprites *sp);
 char	**mtxdup(char **av, int fd);
 char	*get_the_line(int fd);
 int		ft_strrchr2(char *s, char *c);
@@ -50,9 +63,10 @@ int		mtx_trim(char **mtx);
 char	**map_mtx(char **mtx, char *av);
 bool	empy_line(char *line);
 void	freemtx(char **mtx);
-int		check_extras(char **mtx, t_details *dets, int trimmed, int i);
+int		check_extras(char **mtx, t_details *dets, t_sprites *sp, int trimmed);
 void	freeatts(t_details *dets);
 int		set_colors(t_textures *txt, t_details *dets);
-int		check_split_size(char **mtx);
+int		check_wall_available(t_details *details, t_sprites *sprites);
+void	closeall(int fd, char **mtx, t_details dets);
 
 #endif

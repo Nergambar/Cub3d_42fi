@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:02:53 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 12:31:41 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:10:36 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,3 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	return (res);
 }
-/* int main()
-{
-	char **tab;
-	int i;
-
-	tab = ft_split(" ", ' ');
-	i = 0;
-	while (tab[i])
-	{
-		printf("%s\n", tab[i]);
-		i++;
-	}
-	return (0);
-} */

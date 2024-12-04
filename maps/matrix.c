@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 12:42:59 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:01:42 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,27 @@
 
 static char	**mtx_init(char **av, int fd)
 {
-	char **copy;
-	int i;
-	int height;
-	int width;
-	char *line;
+	char	**copy;
+	int		i;
+	int		height;
+	int		width;
+	char	*line;
 
 	height = get_height(av[1]);
 	width = get_max_width(av[1]);
-	if(!height || !width)
+	if (!height || !width)
 		return (NULL);
 	copy = (char **)ft_calloc((height + 1), sizeof(char *));
 	if (!copy)
 		return (NULL);
 	i = 0;
-	while ((line = get_the_line(fd)) != NULL)
+	line = get_the_line(fd);
+	while (line != NULL)
 	{
 		copy[i] = ft_strdup(line);
 		i++;
 		free(line);
+		line = get_the_line(fd);
 	}
 	free(line);
 	return (copy);
@@ -40,9 +42,9 @@ static char	**mtx_init(char **av, int fd)
 
 char	*get_the_line(int fd)
 {
-	char *str;
-	char *tmp;
-	size_t len;
+	char	*str;
+	char	*tmp;
+	size_t	len;
 
 	tmp = get_next_line(fd);
 	if (!tmp)
@@ -56,9 +58,9 @@ char	*get_the_line(int fd)
 	return (str);
 }
 
-char **mtxdup(char **av, int fd)
+char	**mtxdup(char **av, int fd)
 {
-	char **copy;
+	char	**copy;
 
 	if (!ft_strrchr2(av[1], ".cub"))
 		return (NULL);
@@ -68,52 +70,60 @@ char **mtxdup(char **av, int fd)
 	return (copy);
 }
 
-int main(int ac, char **av)
+static void	printfchecks(t_details dets, t_textures txt)
 {
-	char **mtx;
-	int fd;
-	int trimmed;
-	int i;
-	t_details dets;
-	t_textures txt;
-
-	init_attrs(&dets);
-	if (ac == 1)
-		return (0);
-	fd = open("test.cub", O_RDONLY);
-	if (fd < 0)
-		return(printf("ERROR\n"), 1);
-	mtx = mtxdup(av, fd);
-	if (!mtx)
-		return(printf("ERROR\n"), 1);
-	trimmed = mtx_trim(mtx);
-	if (!check_extras(mtx, &dets, trimmed, 0))
-	{
-		printf("ERROR\n");
-		return (1);
-	}
-	mtx = map_mtx(mtx, av[1]);
-	i = -1;
-	while (mtx[++i])
-		printf	("%s\n", mtx[i]);
-	if (!set_colors(&txt, &dets))
-	{
-		printf("ERROR\n");
-		return (1);
-	}
-/* 				todo			 */
 	printf("NO:%s\n", dets.no);
 	printf("SO:%s\n", dets.so);
 	printf("WE:%s\n", dets.we);
 	printf("EA:%s\n", dets.ea);
 	if (txt.c && txt.f)
 	{
-		i = 0;
 		printf("F:%d\n", txt.f);
 		printf("C:%d\n", txt.c);
 	}
-/* 				todo			 */
-	close(fd);
-	freeatts(&dets);
-	freemtx(mtx);
+}
+
+static char	**initial_checks(char **av, int fd, \
+	t_details *dets, t_sprites *sp)
+{
+	char	**mtx;
+	int		t;
+
+	mtx = NULL;
+	mtx = mtxdup(av, fd);
+	if (!mtx)
+		return (NULL);
+	t = mtx_trim(mtx);
+	if (!check_extras(mtx, dets, sp, t))
+		return (NULL);
+	return (mtx);
+}
+int main(int ac, char **av)
+{
+	char **mtx;
+	int fd;
+	int i;
+	int trimmed;
+	t_sprites sp;
+	t_details dets;
+	t_textures txt;
+
+	trimmed = 0;
+	init_attrs(&dets, &sp);
+	if (ac == 1)
+		return (0);
+	fd = open("test.cub", O_RDONLY);
+	if (fd < 0)
+		return(printf("ERROR\n"), 1);
+	mtx = initial_checks(av, fd, &dets, &sp);
+	if (!mtx)
+		return (printf("ERROR\n"), freemtx(mtx), 1);
+	mtx = map_mtx(mtx, av[1]);
+	i = -1;
+	while (mtx[++i])
+		printf	("%s\n", mtx[i]);
+	if (!set_colors(&txt, &dets))
+		return (printf("ERROR\n"), 1);
+	printfchecks(dets, txt);
+	closeall()
 }

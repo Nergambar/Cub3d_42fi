@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mtx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 10:46:50 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/02 12:08:38 by negambar         ###   ########.fr       */
+/*   Created: 2024/12/04 11:01:44 by negambar          #+#    #+#             */
+/*   Updated: 2024/12/04 11:02:06 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-
-/* int main()
+void	closeall(int fd, char **mtx, t_details dets)
 {
-	printf("Hello, World!\n");
-} */
+	close(fd);
+	freeatts(&dets);
+	freemtx(mtx);
+}

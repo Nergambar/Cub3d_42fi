@@ -6,17 +6,23 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:30:15 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 12:30:19 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:49:02 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_attrs(t_details *dets)
+void	init_attrs(t_details *dets, t_sprites *sp)
 {
 	int	i;
 
 	i = 0;
+	sp->x = 64;
+	sp->y = 64;
+	sp->spriteN = NULL;
+	sp->spriteS = NULL;
+	sp->spriteW = NULL;
+	sp->spriteE = NULL;
 	dets->no = NULL;
 	dets->so = NULL;
 	dets->we = NULL;
@@ -46,11 +52,7 @@ static int set_attrs(char **mtx, t_details *dets, int trimmed)
 			dets->mc = ft_split(&mtx[i][2], ',');
 		i++;
 	}
-	if (dets->mc != NULL && dets->mf != NULL)
-	{
-		printf("good\n");
-	}
-	else
+	if (!dets->no || !dets->so || !dets->we || !dets->ea || !dets->mf || !dets->mc)
 		return (0);
 	return (1);
 }
@@ -94,14 +96,18 @@ int	check_txtrs(char **mtx, int trimmed, int i)
 	return (0);
 }
 
-int check_extras(char **mtx, t_details *dets, int trimmed, int i)
+int check_extras(char **mtx, t_details *dets, t_sprites *sp, int trimmed)
 {
+	int	i;
+
+	i = 0;
 	while (mtx[i][0] == ' ' || mtx[i][0] == '\t' || mtx[i][0] == '\n' || mtx[i][0] == '\0')
 		i++;
 	if (!check_txtrs(mtx, trimmed, i))
 		return (-9999);
 	if (!set_attrs(mtx, dets, trimmed))
 		return (-9999);
-	// set_colors(mtx, dets, trimmed, i);
+	if (!check_wall_available(dets, sp))
+		return (-9999);
 	return (1);
 }
