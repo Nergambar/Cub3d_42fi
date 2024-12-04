@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/04 11:14:25 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:22:10 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static char	**initial_checks(char **av, int fd, \
 	mtx = NULL;
 	mtx = mtxdup(av, fd);
 	if (!mtx)
-		return (printf("ERROR\n"), NULL);
+		return (printf("ERROR\ncheck again"), NULL);
 	t = mtx_trim(mtx);
 	if (!check_extras(mtx, dets, sp, t))
 		return (NULL);
@@ -111,13 +111,11 @@ int main(int ac, char **av)
 	trimmed = 0;
 	init_attrs(&dets, &sp);
 	if (ac == 1)
-		return (0);
+		return (printf("ERROR\ninsert name map"), 1);
 	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		return(printf("ERROR\n"), 1);
 	mtx = initial_checks(av, fd, &dets, &sp);
 	if (!mtx)
-		return (printf("ERROR\n"), freemtx(mtx), 1);
+		return (freemtx(mtx), 1);
 	mtx = map_mtx(mtx, av[1]);
 	i = -1;
 	while (mtx[++i])

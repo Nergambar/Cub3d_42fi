@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:46:47 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/26 12:19:59 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:22:00 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strrchr2(char *s, char *c)
 	if (j == count)
 		return (1);
 	else
-		return (printf("ERROR"), 0);
+		return (0);
 }
 
 size_t	get_height(char *av)

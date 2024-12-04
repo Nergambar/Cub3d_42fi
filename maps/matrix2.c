@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:40:33 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 10:59:03 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:21:09 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	freemtx(char **mtx)
 	int	i;
 
 	i = 0;
-	while (mtx[i])
+	if (mtx)
 	{
-		free(mtx[i]);
-		i++;
+		while (mtx[i])
+		{
+			free(mtx[i]);
+			i++;
+		}
+		free(mtx);
 	}
-	free(mtx);
 }
 
 char	**map_mtx(char **mtx, char *av)
