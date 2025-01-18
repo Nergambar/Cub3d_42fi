@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:40:33 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/04 11:21:09 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:52:57 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	freemtx(char **mtx)
 	}
 }
 
-char	**map_mtx(char **mtx, char *av)
+char	**map_mtx(char **mtx, char *av, t_game *game)
 {
 	char	**copy;
 	int		i;
@@ -52,5 +52,37 @@ char	**map_mtx(char **mtx, char *av)
 	}
 	copy[j] = NULL;
 	freemtx(mtx);
+	game->map = copy;
 	return (copy);
+}
+
+void	printfchecks(t_details dets, t_textures txt)
+{
+	printf("NO:%s\n", dets.no);
+	printf("SO:%s\n", dets.so);
+	printf("WE:%s\n", dets.we);
+	printf("EA:%s\n", dets.ea);
+	if (txt.c && txt.f)
+	{
+		printf("F:%d\n", txt.f);
+		printf("C:%d\n", txt.c);
+	}
+}
+
+char	**initial_checks(char **av, t_game *game)
+{
+	char	**mtx;
+	int		t;
+	int		fd;
+
+	mtx = NULL;
+	fd = open(av[1], O_RDONLY);
+	mtx = mtxdup(av, fd);
+	if (!mtx)
+		return (printf("ERROR\ncheck again"), NULL);
+	t = mtx_trim(mtx);
+	if (!check_extras(mtx, game, t))
+		return (NULL);
+	close(fd);
+	return (mtx);
 }

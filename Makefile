@@ -6,38 +6,44 @@
 #    By: negambar <negambar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/02 11:59:01 by negambar          #+#    #+#              #
-#    Updated: 2024/12/04 11:09:04 by negambar         ###   ########.fr        #
+#    Updated: 2025/01/14 13:15:29 by negambar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-LIBFT = ./libft
+LIBFT = libft
 GET = get_next_line/*.c
 
-SRC =  maps/maps.c maps/matrix.c maps/matrix2.c maps/mtx_utils.c \
-	textures/t_check.c textures/t_utils.c textures/t_wallcheck.c \
+SRC =  maps/maps.c maps/matrix.c maps/matrix2.c \
+	textures/t_check.c textures/t_utils.c \
 	get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-	main.c
+	guided/main.c guided/main_utils.c guided/player.c guided/extras.c guided/maps_utils.c guided/extras2.c \
+	guided/move_utils.c maps/flood_fill.c maps/utils.c maps/utils2.c
+OBJDIR = objects
+
+$(shell mkdir -p $(OBJDIR))
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -Ilibft
-MINILBX = -Lminilibx-linux -lmlx -Llibft -lft -lXext -lX11
+FLAGS = -Wall -Wextra -Werror -Ilibft -g
+MINILBX = -Lminilibx-linux -lmlx -Llibft -lft -lXext -lX11 -lm
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME) $(LIBFT) $(GET)
+
 $(NAME): $(OBJ) $(LIBFT) $(GET)
 		@echo Linking... $(NAME)
 		@make -C $(LIBFT)
-		ar rc $(NAME) $(OBJ)
 		$(CC) $(OBJ) -o $(NAME) $(FLAGS) $(MINILBX)
-%.o : %.c
+$(OBJDIR)/%.o : %.c
+	@mkdir -p $(dir $@)
 	@echo Compiling $<...
-	$(CC) $(FLAGS) -o $@ -c $<
+	$(CC) $(FLAGS) -c $< -o $@
+
 clean:
 		@echo Cleaning...
-		@rm -f $(OBJ)
+		@rm -rf $(OBJDIR)
 		@make clean -C $(LIBFT)
 fclean: clean
 		@echo Cleaning...

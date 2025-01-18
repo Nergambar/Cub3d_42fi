@@ -6,32 +6,39 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 10:46:02 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 12:42:16 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:52:50 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	freeatts(t_details *dets)
+int	check_wall_available(t_details *d, t_sp *sp)
 {
-	if (dets)
+	int	i;
+
+	i = 64;
+	//if (DEBUG && (d->no || d->so || d->we || d->ea))
+		// write(1, "questo non e' sbagliato", 25);
+	sp->sn = mlx_xpm_file_to_image(d->mlx, d->no, &i, &i);
+	sp->sps = mlx_xpm_file_to_image(d->mlx, d->so, &i, &i);
+	sp->sw = mlx_xpm_file_to_image(d->mlx, d->we, &i, &i);
+	sp->se = mlx_xpm_file_to_image(d->mlx, d->ea, &i, &i);
+	if (!sp->sn || !sp->sps || !sp->sw || !sp->se)
 	{
-		if (dets->no)
-			free(dets->no);
-		if (dets->so)
-			free(dets->so);
-		if (dets->we)
-			free(dets->we);
-		if (dets->ea)
-			free(dets->ea);
-		if (dets->mf)
-			freemtx(dets->mf);
-		if (dets->mc)
-			freemtx(dets->mc);
+		free(d->no);
+		free(d->so);
+		free(d->we);
+		free(d->ea);
+		d->no = NULL;
+		d->so = NULL;
+		d->we = NULL;
+		d->ea = NULL;
+		return (-99999);
 	}
+	return (1);
 }
 
-static int get_color(char **mtx)
+static int	get_color(char **mtx)
 {
 	int	rgb[3];
 
@@ -43,7 +50,8 @@ static int get_color(char **mtx)
 
 int	set_colors(t_textures *txt, t_details *dets)
 {
-	int i;
+	int	i;
+
 	if (dets->mf && dets->mc)
 	{
 		i = 0;

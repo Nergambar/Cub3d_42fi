@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:53:12 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/04 11:22:10 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:15:38 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,58 +70,44 @@ char	**mtxdup(char **av, int fd)
 	return (copy);
 }
 
-static void	printfchecks(t_details dets, t_textures txt)
+static void	second_main(t_game *game)
 {
-	printf("NO:%s\n", dets.no);
-	printf("SO:%s\n", dets.so);
-	printf("WE:%s\n", dets.we);
-	printf("EA:%s\n", dets.ea);
-	if (txt.c && txt.f)
-	{
-		printf("F:%d\n", txt.f);
-		printf("C:%d\n", txt.c);
-	}
+	int	i;
+
+	i = 0;
+	init_game(game);
+	mlx_hook(game->win, 17, 1L << 17, ft_close, game);
+	mlx_hook(game->win, 2, 1L << 0, &key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, &key_release, &game->player);
+	mlx_loop_hook(game->mlx, draw_loop, game);
+	mlx_loop(game->mlx);
 }
 
-static char	**initial_checks(char **av, int fd, \
-	t_details *dets, t_sprites *sp)
+int	main(int ac, char **av)
 {
-	char	**mtx;
-	int		t;
-
-	mtx = NULL;
-	mtx = mtxdup(av, fd);
-	if (!mtx)
-		return (printf("ERROR\ncheck again"), NULL);
-	t = mtx_trim(mtx);
-	if (!check_extras(mtx, dets, sp, t))
-		return (NULL);
-	return (mtx);
-}
-int main(int ac, char **av)
-{
-	char **mtx;
-	int fd;
-	int i;
-	int trimmed;
-	t_sprites sp;
-	t_details dets;
-	t_textures txt;
+	t_textures	txt;
+	char		**mtx;
+	int			trimmed;
+	t_game		game;
 
 	trimmed = 0;
-	init_attrs(&dets, &sp);
+	mtx = NULL;
+	game.dets.mlx = mlx_init();
+	// init_game(&game);
+	init_attrs(&game);
 	if (ac == 1)
 		return (printf("ERROR\ninsert name map"), 1);
-	fd = open(av[1], O_RDONLY);
-	mtx = initial_checks(av, fd, &dets, &sp);
+	mtx = initial_checks(av, &game);
 	if (!mtx)
 		return (freemtx(mtx), 1);
-	mtx = map_mtx(mtx, av[1]);
-	i = -1;
-	while (mtx[++i])
-		printf	("%s\n", mtx[i]);
-	if (!set_colors(&txt, &dets))
+	mtx = map_mtx(mtx, av[1], &game);
+	if (!mtx)
 		return (printf("ERROR\n"), 1);
-	printfchecks(dets, txt);
-	closeall(fd, mtx, dets);
+	char	**cpy = utils(av);
+	game.map = cpy;
+	if (check_map(cpy, &game.player) != 1)
+		return (1);
+	if (!set_colors(&txt, &game.dets))
+		return (1);
+	second_main(&game);
 }

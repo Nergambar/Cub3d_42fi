@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_mdf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:30:13 by negambar          #+#    #+#             */
-/*   Updated: 2024/11/28 11:30:35 by negambar         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:12:25 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int check_spaces(char *str)
+static int	check_spaces(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
@@ -22,8 +22,7 @@ static int check_spaces(char *str)
 	return (i);
 }
 
-
-static int check_for_alpha(int c)
+static int	check_for_alpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (-9999999);
