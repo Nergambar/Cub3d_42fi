@@ -6,11 +6,22 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:15:36 by negambar          #+#    #+#             */
-/*   Updated: 2024/12/16 12:08:12 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:42:02 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	exit_hook(t_game *game)
+{
+	printf("Window Closed\n");
+	destroy_image(game);
+	free_matrix(game->map);
+	free_map(game->map_ref);
+	free_textures(game);
+	exit(1);
+	return (0);
+}
 
 static void	check_player(t_player **player, t_game *game, int x, int y)
 {

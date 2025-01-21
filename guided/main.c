@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:46:50 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 13:17:17 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:31:06 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void draw_wall(t_game *game, int ray, double t_pix, double b_pix, double wall_h)
 	{
 		tex_y = calc_tex_y(txt, tex_pos);
 		tex_pos += step;
-		put_tex_pix(game, ray, t_pix++, get_texture_color(txt, tex_x, tex_y));
+		put_tex_pix(game, ray, t_pix++, get_texture_color(game, tex_x, tex_y));
 	}
 }
 

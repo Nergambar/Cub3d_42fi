@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 10:46:02 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 12:52:50 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:43:05 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,30 @@ int	set_colors(t_textures *txt, t_details *dets)
 		}
 	}
 	return (1);
+}
+
+int	check_map_h_w(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map->map[i])
+	{
+		j = 0;
+		while (map->map[i][j])
+			j++;
+		if (j > map->w_map)
+		{
+			map->w_map = j;
+			if (i != 0 && i != map->map_lines)
+			{
+				if (check_mid_full_walls(map, i))
+					return (1);
+			}
+		}
+		i++;
+	}
+	map->h_map = i;
+	return (0);
 }

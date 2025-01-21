@@ -6,7 +6,7 @@
 #    By: negambar <negambar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/02 11:59:01 by negambar          #+#    #+#              #
-#    Updated: 2025/01/14 13:15:29 by negambar         ###   ########.fr        #
+#    Updated: 2025/01/21 11:28:04 by negambar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ GET = get_next_line/*.c
 SRC =  maps/maps.c maps/matrix.c maps/matrix2.c \
 	textures/t_check.c textures/t_utils.c \
 	get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-	guided/main.c guided/main_utils.c guided/player.c guided/extras.c guided/maps_utils.c guided/extras2.c \
+	guided/main.c guided/main_utils.c guided/main_utils2.c guided/player.c guided/extras.c guided/maps_utils.c guided/extras2.c \
 	guided/move_utils.c maps/flood_fill.c maps/utils.c maps/utils2.c
 OBJDIR = objects
 

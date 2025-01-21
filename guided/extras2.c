@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:04:29 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 12:59:14 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:27:17 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	extra_funky(int i, t_game *game)
 	int		end;
 	double	step;
 
+	(void)i;
 	height = (BLOCK / game->distance) * (WIDTH / 2);
 	start_y = (HEIGHT - height) / 2;
 	end = start_y + height;

@@ -6,13 +6,13 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:40:33 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 13:10:09 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:42:32 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	get_texture_color(t_img *txt, int x, int y)
+int	get_texture_color(t_game *txt, int x, int y)
 {
 	char	*pixel;
 	int		color;
@@ -20,6 +20,22 @@ int	get_texture_color(t_img *txt, int x, int y)
 	pixel = txt->data + ((y * txt->size_line) + (x + txt->bpp / 8));
 	color = *(int *)pixel;
 	return (color);
+}
+
+int	wall_hit(float x, float y, t_map *map)
+{
+	int	x_m;
+	int	y_m;
+
+	if (x < 0 || y < 0)
+		return (0);
+	x_m = floor (x / BLOCK);
+	y_m = floor (y / BLOCK);
+	if ((y_m >= map->h_map || x_m >= map->w_map || y_m <= 0 || x_m <= 0))
+		return (0);
+	if (map->map[y_m][x_m] == '1')
+		return (0);
+	return (1);
 }
 
 float	get_h_inter(t_player *player, char **map, float angle)
@@ -76,13 +92,13 @@ int	key_press(int keycode, t_game *game)
 
 	player = &game->player;
 	if (keycode == W)
-		player->key_up = true;
+		player->keyup = true;
 	if (keycode == S)
-		player->key_down = true;
+		player->keydown = true;
 	if (keycode == A)
-		player->key_left = true;
+		player->keyleft = true;
 	if (keycode == D)
-		player->key_right = true;
+		player->keyright = true;
 	if (keycode == LEFT)
 		player->left_rotate = true;
 	if (keycode == RIGHT)
@@ -95,13 +111,13 @@ int	key_press(int keycode, t_game *game)
 int	key_release(int keycode, t_player *player)
 {
 	if (keycode == W)
-		player->key_up = false;
+		player->keyup = false;
 	if (keycode == S)
-		player->key_down = false;
+		player->keydown = false;
 	if (keycode == A)
-		player->key_left = false;
+		player->keyleft = false;
 	if (keycode == D)
-		player->key_right = false;
+		player->keyright = false;
 	if (keycode == LEFT)
 		player->left_rotate = false;
 	if (keycode == RIGHT)

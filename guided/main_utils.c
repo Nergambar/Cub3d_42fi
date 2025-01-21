@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:19:30 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 12:27:18 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:26:58 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ t_img	*define_side(t_game *game)
 	if (game->flag == 0)
 	{
 		if (game->ray_angle > PI / 2 && game->ray_angle < 3 * (PI / 2))
-			txt = &game->t.sw;
+			txt = game->t.sw;
 		else
-			txt = &game->t.se;
+			txt = game->t.se;
 	}
 	else
 	{
 		if (game->ray_angle > 0 && game->ray_angle < PI)
-			txt = &game->t.sps;
+			txt = game->t.sps;
 		else
-			txt = &game->t.sn;
+			txt = game->t.sn;
 	}
 	return (txt);
 }

@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:45:15 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 11:46:28 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:33:45 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,45 @@ int	ft_close(t_game *loop)
 	if (loop->map)
 		freemtx2(loop->map);
 	exit(0);
+}
+
+int	unit_circle(float angle, char c)
+{
+	if (c == 'x')
+	{
+		if (angle > 0 && angle < PI)
+			return (1);
+	}
+	else if (c == 'y')
+	{
+		if (angle > (PI / 2) && angle < (3 * PI) / 2)
+			return (1);
+	}
+	return (0);
+}
+
+
+int	inter_check(float angle, float *inter, float *step, int is_horizon)
+{
+	if (is_horizon)
+	{
+		if (angle > 0 && angle < PI)
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*step *= -1;
+	}
+	else
+	{
+		if (!(angle > PI / 2 && angle < 3 * PI / 2))
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*step *= -1;
+	}
+	return (1);
 }
 
 float	normalize_angle(float angle)

@@ -6,7 +6,7 @@
 /*   By: negambar <negambar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:47:00 by negambar          #+#    #+#             */
-/*   Updated: 2025/01/14 13:16:39 by negambar         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:43:33 by negambar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,16 +137,20 @@ typedef struct s_game
 	struct s_player		player;
 }	t_game;
 
+
+int	exit_hook(t_game *game);
+int	inter_check(float angle, float *inter, float *step, int is_horizon);
 double	calc_wall_px_hit(t_game *game, int flag);
 t_img	*define_side(t_game *game);
 int		calc_tex_x(t_game *game, t_img *txt, int flag);
 int		calc_tex_y(t_img *texture, double tex_pos);
 void	put_tex_pix(t_game *game, int x, int y, int color);
-int		get_texture_color(t_img *txt, int x, int y);
+int		get_texture_color(t_game *txt, int x, int y);
 float	get_h_inter(t_player *player, char **map, float angle);
 float	get_v_inter(t_player *player, char **map, float angle);
 int	key_press(int keycode, t_game *game);
 int	key_release(int keycode, t_player *player);
+int	unit_circle(float angle, char c);
 
 float	fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
 t_ray	*ray_lstnew(float x, float y, float angle, float fix_dist);
